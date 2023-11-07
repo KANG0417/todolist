@@ -1,9 +1,10 @@
 import React from "react";
 
-function CheckedButton() {
+function CheckedButton({ data }) {
   return (
-    <></>
-    // <button>{isDone ? "취소" : "완료"}</button>
+    <>
+      <button>{data.isDone ? "취소" : "완료"}</button>
+    </>
   );
 }
 

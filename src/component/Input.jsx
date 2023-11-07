@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import ApplyButton from "../button/ApplyButton";
 import RemoveButton from "../button/RemoveButton";
-import CheckedButton from "../button/CheckButton";
+import CheckedButton from "../button/CheckedButton";
 
 function Input() {
+  const UUID = crypto.randomUUID();
   const [titleQuery, setTitleQuery] = useState("");
   const [contentQuery, setContentQuery] = useState("");
-  const [todo, setTodo] = useState(initalState);
-  const working = todo.filter((data) => !data.isDone);
-  const done = todo.filter((data) => !data.isDone);
 
   const initalState = {
     id: UUID,
@@ -17,8 +15,9 @@ function Input() {
     isDone: false,
   };
 
-  const UUID = crypto.randomUUID();
-
+  const [todo, setTodo] = useState([]);
+  const working = todo.filter((data) => !data.isDone);
+  const done = todo.filter((data) => data.isDone);
   const inputTitle = (event) => {
     const titleQuery = event.target.value;
 
@@ -33,8 +32,8 @@ function Input() {
 
   const applyclickButtonHandler = () => {
     alert("등록되었습니다");
-
-    setTodo(todo);
+    setTodo([...todo, initalState]);
+    console.log(todo);
     setTitleQuery("");
     setContentQuery("");
   };
@@ -48,11 +47,24 @@ function Input() {
         <h2>할일</h2>
         {working.map((data) => {
           return (
-            <div>
+            <div key={data.id}>
               <p>{data.title}</p>
               <p>{data.content}</p>
-              <CheckedButton />
-              <RemoveButton />
+              <CheckedButton data={data} />
+              <RemoveButton data={data} />
+            </div>
+          );
+        })}
+      </div>
+      <div>
+        <h2>완료</h2>
+        {done.map((data) => {
+          return (
+            <div key={data.id}>
+              <p>{data.title}</p>
+              <p>{data.content}</p>
+              <CheckedButton data={data} />
+              <RemoveButton data={data} />
             </div>
           );
         })}

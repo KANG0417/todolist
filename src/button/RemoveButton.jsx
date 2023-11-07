@@ -1,7 +1,7 @@
 import React from "react";
 
-function RemoveButton() {
-  return <div>RemoveButton</div>;
+function RemoveButton({ data }) {
+  return <button>삭제</button>;
 }
 
 export default RemoveButton;
